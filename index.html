@@ -19,7 +19,7 @@
     background: #c7b39b url(tg_fon.webp); /* Цвет фона и путь к файлу */
    }
   </style>
-    <!-- Meta Pixel Code -->
+    <!-- Meta Pixel Code (Dynamic from URL) -->
 <script>
 !function(f,b,e,v,n,t,s)
 {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -29,10 +29,24 @@ n.queue=[];t=b.createElement(e);t.async=!0;
 t.src=v;s=b.getElementsByTagName(e)[0];
 s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '');
-fbq('track', 'PageView');
+
+// Get pixel ID from URL parameter
+var urlParams = new URLSearchParams(window.location.search);
+var pixelId = urlParams.get('pixel');
+if(pixelId) {
+  fbq('init', pixelId);
+  fbq('track', 'PageView');
+}
 </script>
-<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=&amp;ev=PageView&amp;noscript=1"></noscript>
+<noscript>
+<script>
+var urlParams = new URLSearchParams(window.location.search);
+var pixelId = urlParams.get('pixel');
+if(pixelId) {
+  document.write('<img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=' + pixelId + '&ev=PageView&noscript=1">');
+}
+</script>
+</noscript>
 <!-- End Meta Pixel Code -->
 <!-- Meta Pixel Code -->
 <script>
